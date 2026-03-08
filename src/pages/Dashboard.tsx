@@ -29,7 +29,7 @@ const navItems = [
   { id: "pricing", label: "Pricing", icon: DollarSign },
   { id: "faq", label: "FAQ", icon: HelpCircle },
   { id: "contact", label: "Contact", icon: Phone },
-  { id: "leads", label: "Leads", icon: MessageSquare },
+  { id: "leads", label: "Leads", icon: Inbox },
 ];
 
 export default function Dashboard() {
@@ -49,6 +49,7 @@ export default function Dashboard() {
       case "pricing": return <DashboardPricing />;
       case "faq": return <DashboardFAQ />;
       case "contact": return <DashboardContact />;
+      case "leads": return <DashboardLeads />;
       default: return <DashboardOverview onNavigate={setActiveSection} />;
     }
   };
