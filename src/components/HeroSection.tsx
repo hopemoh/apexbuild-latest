@@ -2,19 +2,18 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Code2, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
-
-const stats = [
-  { value: "150+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "50+", label: "Expert Engineers" },
-  { value: "8+", label: "Years of Excellence" },
-];
+import { useContent } from "@/context/ContentContext";
 
 export const HeroSection = () => {
+  const { content } = useContent();
+  const { hero } = content;
+
   const handleNav = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const pillIcons = [Code2, Zap, Sparkles];
 
   return (
     <section
@@ -45,7 +44,7 @@ export const HeroSection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-sm font-medium text-primary mb-8"
           >
             <Sparkles className="w-4 h-4" />
-            Award-Winning Digital Agency
+            {hero.badge}
             <Sparkles className="w-4 h-4" />
           </motion.div>
 
@@ -56,12 +55,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
           >
-            We Build{" "}
+            {hero.headline1}{" "}
             <span className="text-gradient">Powerful</span>{" "}
-            Websites, Apps{" "}
             <br className="hidden md:block" />
-            &{" "}
-            <span className="text-gradient">Digital Products</span>
+            {hero.headline2}
           </motion.h1>
 
           {/* Sub */}
@@ -71,8 +68,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            From concept to launch — we craft high-performance web apps, mobile applications, 
-            SaaS platforms and custom software that drive real business growth.
+            {hero.subheading}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -87,7 +83,7 @@ export const HeroSection = () => {
               onClick={() => handleNav("#contact")}
               className="bg-gradient-primary text-primary-foreground font-semibold text-base px-8 py-6 rounded-xl shadow-glow hover:opacity-90 hover:scale-105 transition-all duration-200"
             >
-              Start a Project <ArrowRight className="ml-2 w-5 h-5" />
+              {hero.ctaPrimary} <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button
               size="lg"
@@ -95,7 +91,7 @@ export const HeroSection = () => {
               onClick={() => handleNav("#quote")}
               className="border-border bg-card/50 backdrop-blur-sm text-foreground font-semibold text-base px-8 py-6 rounded-xl hover:bg-secondary transition-all duration-200"
             >
-              Get a Quote
+              {hero.ctaSecondary}
             </Button>
           </motion.div>
 
@@ -106,19 +102,18 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap gap-3 justify-center mb-20"
           >
-            {[
-              { icon: Code2, text: "Full-Stack Development" },
-              { icon: Zap, text: "Fast Delivery" },
-              { icon: Sparkles, text: "AI-Powered Solutions" },
-            ].map(({ icon: Icon, text }) => (
-              <span
-                key={text}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/60 border border-border text-sm text-muted-foreground"
-              >
-                <Icon className="w-3.5 h-3.5 text-accent" />
-                {text}
-              </span>
-            ))}
+            {hero.pills.map((pill, i) => {
+              const Icon = pillIcons[i % pillIcons.length];
+              return (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/60 border border-border text-sm text-muted-foreground"
+                >
+                  <Icon className="w-3.5 h-3.5 text-accent" />
+                  {pill.text}
+                </span>
+              );
+            })}
           </motion.div>
         </div>
 
@@ -129,7 +124,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.6 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
         >
-          {stats.map((stat) => (
+          {hero.stats.map((stat) => (
             <div
               key={stat.label}
               className="glass-card rounded-2xl p-5 text-center"

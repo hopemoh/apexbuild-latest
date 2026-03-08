@@ -4,56 +4,17 @@ import { useRef } from "react";
 import {
   Globe, Smartphone, Cloud, Palette, Server, Lightbulb, ArrowRight
 } from "lucide-react";
+import { useContent } from "@/context/ContentContext";
 
-const services = [
-  {
-    icon: Globe,
-    title: "Website Development",
-    description: "Custom, high-performance websites built with modern frameworks. From marketing sites to complex web apps.",
-    tags: ["React", "Next.js", "TypeScript"],
-    color: "from-blue-500/20 to-blue-600/10",
-    glow: "group-hover:shadow-[0_0_30px_hsl(211_100%_55%/0.2)]",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile App Development",
-    description: "Native and cross-platform mobile apps for iOS & Android. Beautiful, performant, and user-centric.",
-    tags: ["React Native", "Flutter", "iOS/Android"],
-    color: "from-cyan-500/20 to-cyan-600/10",
-    glow: "group-hover:shadow-[0_0_30px_hsl(188_94%_50%/0.2)]",
-  },
-  {
-    icon: Cloud,
-    title: "SaaS Development",
-    description: "End-to-end SaaS platforms with authentication, billing, dashboards, and scalable infrastructure.",
-    tags: ["SaaS", "Multi-tenant", "Stripe"],
-    color: "from-violet-500/20 to-violet-600/10",
-    glow: "group-hover:shadow-[0_0_30px_hsl(270_80%_60%/0.2)]",
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    description: "User-centric design systems, wireframes, and prototypes that convert visitors into customers.",
-    tags: ["Figma", "Design System", "Prototyping"],
-    color: "from-pink-500/20 to-pink-600/10",
-    glow: "group-hover:shadow-[0_0_30px_hsl(330_80%_60%/0.2)]",
-  },
-  {
-    icon: Server,
-    title: "API & Backend Development",
-    description: "Robust REST and GraphQL APIs, microservices architecture, and scalable cloud infrastructure.",
-    tags: ["Node.js", "Python", "PostgreSQL"],
-    color: "from-emerald-500/20 to-emerald-600/10",
-    glow: "group-hover:shadow-[0_0_30px_hsl(160_80%_45%/0.2)]",
-  },
-  {
-    icon: Lightbulb,
-    title: "Product Strategy & Consulting",
-    description: "Technical discovery, roadmap planning, architecture review, and startup advisory services.",
-    tags: ["Discovery", "Roadmap", "CTO Advisory"],
-    color: "from-amber-500/20 to-amber-600/10",
-    glow: "group-hover:shadow-[0_0_30px_hsl(45_90%_55%/0.2)]",
-  },
+const iconMap = [Globe, Smartphone, Cloud, Palette, Server, Lightbulb];
+
+const glowMap = [
+  "group-hover:shadow-[0_0_30px_hsl(211_100%_55%/0.2)]",
+  "group-hover:shadow-[0_0_30px_hsl(188_94%_50%/0.2)]",
+  "group-hover:shadow-[0_0_30px_hsl(270_80%_60%/0.2)]",
+  "group-hover:shadow-[0_0_30px_hsl(330_80%_60%/0.2)]",
+  "group-hover:shadow-[0_0_30px_hsl(160_80%_45%/0.2)]",
+  "group-hover:shadow-[0_0_30px_hsl(45_90%_55%/0.2)]",
 ];
 
 const containerVariants = {
@@ -69,6 +30,7 @@ const itemVariants = {
 export const ServicesSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { content } = useContent();
 
   return (
     <section id="services" className="section-padding bg-background">
@@ -100,13 +62,14 @@ export const ServicesSection = () => {
           animate={inView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {services.map((service) => {
-            const Icon = service.icon;
+          {content.services.map((service, i) => {
+            const Icon = iconMap[i % iconMap.length];
+            const glow = glowMap[i % glowMap.length];
             return (
               <motion.div
-                key={service.title}
+                key={service.id}
                 variants={itemVariants}
-                className={`group glass-card rounded-2xl p-7 cursor-pointer transition-all duration-300 hover:-translate-y-1 ${service.glow}`}
+                className={`group glass-card rounded-2xl p-7 cursor-pointer transition-all duration-300 hover:-translate-y-1 ${glow}`}
               >
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-5`}>
                   <Icon className="w-6 h-6 text-foreground" />
@@ -117,13 +80,6 @@ export const ServicesSection = () => {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                   {service.description}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {service.tags.map((tag) => (
-                    <span key={tag} className="px-2.5 py-1 rounded-md bg-secondary text-xs text-muted-foreground">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
                 <button className="inline-flex items-center gap-1.5 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                   Learn more <ArrowRight className="w-3.5 h-3.5" />
                 </button>

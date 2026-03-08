@@ -1,6 +1,7 @@
 import { Code2, Twitter, Linkedin, Github, Instagram, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/context/ContentContext";
 
 const footerLinks = {
   Services: [
@@ -37,6 +38,8 @@ const socials = [
 ];
 
 export const FooterSection = () => {
+  const { content } = useContent();
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container-max px-4 md:px-8 py-16">
@@ -48,12 +51,11 @@ export const FooterSection = () => {
                 <Code2 className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="font-display font-bold text-lg">
-                Dev<span className="text-gradient">Forge</span>
+                Moh<span className="text-gradient">Stack</span>
               </span>
             </a>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
-              We craft world-class digital products for startups and enterprises. 
-              150+ projects delivered. 98% client satisfaction.
+              {content.tagline}
             </p>
 
             {/* Newsletter */}
@@ -95,7 +97,7 @@ export const FooterSection = () => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} DevForge. All rights reserved. Built with ❤️ and ☕
+            © {new Date().getFullYear()} {content.companyName}. All rights reserved. Built with ❤️ and ☕
           </p>
           <div className="flex items-center gap-3">
             {socials.map(({ icon: Icon, label, href }) => (
