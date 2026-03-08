@@ -51,7 +51,8 @@ export const DashboardLeads = () => {
 
   const fetchLeads = async () => {
     setLoading(true);
-    const { data } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
       .from("leads")
       .select("*")
       .order("created_at", { ascending: false });
@@ -62,14 +63,16 @@ export const DashboardLeads = () => {
   useEffect(() => { fetchLeads(); }, []);
 
   const updateStatus = async (id: string, status: Lead["status"]) => {
-    await supabase.from("leads").update({ status }).eq("id", id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any).from("leads").update({ status }).eq("id", id);
     setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status } : l)));
     if (selected?.id === id) setSelected((s) => s ? { ...s, status } : s);
   };
 
   const deleteLead = async (id: string) => {
     if (!confirm("Delete this lead permanently?")) return;
-    await supabase.from("leads").delete().eq("id", id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any).from("leads").delete().eq("id", id);
     setLeads((prev) => prev.filter((l) => l.id !== id));
     if (selected?.id === id) setSelected(null);
   };

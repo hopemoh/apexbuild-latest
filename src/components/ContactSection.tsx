@@ -28,13 +28,15 @@ export const ContactSection = () => {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    await supabase.from("leads").insert({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase as any).from("leads").insert({
       type: "contact",
       name: data.get("name") as string,
       email: data.get("email") as string,
-      subject: data.get("subject") as string || null,
+      subject: (data.get("subject") as string) || null,
       message: data.get("message") as string,
     });
+    if (error) console.error("Lead insert error:", error);
 
     setSubmitting(false);
     setSubmitted(true);
