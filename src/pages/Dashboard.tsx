@@ -98,6 +98,9 @@ export default function Dashboard() {
 
         {/* Bottom actions */}
         <div className="p-2 border-t border-border space-y-1">
+          {sidebarOpen && user && (
+            <p className="text-xs text-muted-foreground px-3 py-1 truncate">{user.email}</p>
+          )}
           <button
             onClick={() => window.open("/", "_blank")}
             title={!sidebarOpen ? "View Site" : undefined}
@@ -113,6 +116,14 @@ export default function Dashboard() {
           >
             <RotateCcw className="w-4 h-4 flex-shrink-0" />
             {sidebarOpen && <span>Reset Content</span>}
+          </button>
+          <button
+            onClick={() => { if (confirm("Sign out of the CMS?")) signOut(); }}
+            title={!sidebarOpen ? "Sign Out" : undefined}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all"
+          >
+            <LogOut className="w-4 h-4 flex-shrink-0" />
+            {sidebarOpen && <span>Sign Out</span>}
           </button>
         </div>
       </aside>
