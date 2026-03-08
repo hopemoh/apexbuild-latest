@@ -150,8 +150,22 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-2">
             <span className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground bg-secondary/60 px-3 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Auto-saved
+              {saving ? (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                  Saving…
+                </>
+              ) : loading ? (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-pulse" />
+                  Loading…
+                </>
+              ) : (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Saved to DB
+                </>
+              )}
             </span>
           </div>
         </header>
