@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   LayoutDashboard, Type, Briefcase, Image, GitBranch,
   MessageSquare, DollarSign, HelpCircle, Phone, LogOut,
-  ChevronRight, Code2, Menu, X, RotateCcw, ExternalLink
+  ChevronRight, Code2, Menu, X, RotateCcw, ExternalLink, Inbox
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContent } from "@/context/ContentContext";
