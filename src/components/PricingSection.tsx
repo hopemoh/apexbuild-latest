@@ -2,74 +2,24 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, Zap, Users, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/context/ContentContext";
 
-const plans = [
-  {
-    icon: Zap,
-    title: "Fixed Price",
-    subtitle: "Best for defined projects",
-    price: "From $5,000",
-    period: "per project",
-    description: "Ideal for projects with clear scope and requirements. We agree on fixed cost and timeline upfront.",
-    features: [
-      "Detailed project scoping",
-      "Fixed timeline & budget",
-      "Milestone-based payments",
-      "Full project documentation",
-      "3 months post-launch support",
-      "Source code ownership",
-    ],
-    cta: "Get a Quote",
-    highlight: false,
-    color: "from-blue-500/20 to-blue-600/10",
-    border: "border-blue-500/20",
-  },
-  {
-    icon: Users,
-    title: "Dedicated Team",
-    subtitle: "Most popular",
-    price: "From $8,000",
-    period: "per month",
-    description: "Get a dedicated team of engineers, designers, and a PM working exclusively on your product.",
-    features: [
-      "2-8 dedicated developers",
-      "Agile sprints & daily standups",
-      "Full-time project manager",
-      "UI/UX designer included",
-      "Priority Slack support",
-      "Monthly performance reports",
-      "Scale team up or down",
-    ],
-    cta: "Start Building",
-    highlight: true,
-    color: "from-primary/30 to-accent/20",
-    border: "border-primary/40",
-  },
-  {
-    icon: Clock,
-    title: "Hourly / Consulting",
-    subtitle: "Flexible engagement",
-    price: "$75–$120",
-    period: "per hour",
-    description: "Perfect for ongoing work, code reviews, technical consulting, and smaller tasks.",
-    features: [
-      "Senior engineer access",
-      "No long-term commitment",
-      "Weekly billing",
-      "Technical consulting",
-      "Code audits & reviews",
-      "Architecture advisory",
-    ],
-    cta: "Book a Call",
-    highlight: false,
-    color: "from-violet-500/20 to-violet-600/10",
-    border: "border-violet-500/20",
-  },
+const iconMap = [Zap, Users, Clock];
+const colorMap = [
+  "from-blue-500/20 to-blue-600/10",
+  "from-primary/30 to-accent/20",
+  "from-violet-500/20 to-violet-600/10",
+];
+const borderMap = [
+  "border-blue-500/20",
+  "border-primary/40",
+  "border-violet-500/20",
 ];
 
 export const PricingSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { content } = useContent();
 
   const handleNav = (href: string) => {
     const el = document.querySelector(href);
@@ -99,15 +49,17 @@ export const PricingSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {plans.map((plan, i) => {
-            const Icon = plan.icon;
+          {content.pricing.map((plan, i) => {
+            const Icon = iconMap[i % iconMap.length];
+            const color = colorMap[i % colorMap.length];
+            const border = borderMap[i % borderMap.length];
             return (
               <motion.div
-                key={plan.title}
+                key={plan.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`relative glass-card rounded-2xl p-8 border ${plan.border} transition-all duration-300 hover:-translate-y-1 ${
+                className={`relative glass-card rounded-2xl p-8 border ${border} transition-all duration-300 hover:-translate-y-1 ${
                   plan.highlight ? "shadow-glow ring-1 ring-primary/30" : "hover:shadow-elevated"
                 }`}
               >
@@ -119,7 +71,7 @@ export const PricingSection = () => {
                   </div>
                 )}
 
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${plan.color} flex items-center justify-center mb-5`}>
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center mb-5`}>
                   <Icon className="w-6 h-6 text-foreground" />
                 </div>
 
@@ -138,8 +90,8 @@ export const PricingSection = () => {
                 </p>
 
                 <ul className="space-y-2.5 mb-8">
-                  {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2.5">
+                  {plan.features.map((feat, fi) => (
+                    <li key={fi} className="flex items-start gap-2.5">
                       <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-foreground/80">{feat}</span>
                     </li>

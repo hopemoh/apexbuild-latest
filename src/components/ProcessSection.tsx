@@ -1,55 +1,14 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Search, Map, Pen, Code2, FlaskConical, Rocket, ArrowRight } from "lucide-react";
+import { useContent } from "@/context/ContentContext";
 
-const steps = [
-  {
-    number: "01",
-    icon: Search,
-    title: "Discovery",
-    description: "We deep-dive into your business goals, target audience, technical requirements, and competitive landscape to build a solid foundation.",
-    detail: "Requirements analysis, stakeholder interviews, market research",
-  },
-  {
-    number: "02",
-    icon: Map,
-    title: "Planning",
-    description: "We create a detailed project roadmap, technical architecture, timeline, and resource allocation plan for transparent execution.",
-    detail: "Sprint planning, architecture design, timeline estimation",
-  },
-  {
-    number: "03",
-    icon: Pen,
-    title: "Design",
-    description: "Our designers craft intuitive wireframes, interactive prototypes, and a polished design system that aligns with your brand.",
-    detail: "UI/UX design, prototyping, design system, user testing",
-  },
-  {
-    number: "04",
-    icon: Code2,
-    title: "Development",
-    description: "Agile development with weekly demos, CI/CD pipelines, and rigorous code reviews ensuring quality at every sprint.",
-    detail: "Agile sprints, code reviews, CI/CD, daily standups",
-  },
-  {
-    number: "05",
-    icon: FlaskConical,
-    title: "Testing",
-    description: "Comprehensive QA across devices, browsers, and scenarios including performance, security, and accessibility testing.",
-    detail: "QA testing, security audit, performance optimization",
-  },
-  {
-    number: "06",
-    icon: Rocket,
-    title: "Launch & Support",
-    description: "Smooth deployment to production, monitoring setup, and ongoing support to ensure your product succeeds long-term.",
-    detail: "Deployment, monitoring, 24/7 support, iteration",
-  },
-];
+const iconMap = [Search, Map, Pen, Code2, FlaskConical, Rocket];
 
 export const ProcessSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { content } = useContent();
 
   return (
     <section id="process" className="section-padding bg-background">
@@ -78,17 +37,17 @@ export const ProcessSection = () => {
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
 
           <div className="space-y-8 lg:space-y-0">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
+            {content.process.map((step, i) => {
+              const Icon = iconMap[i % iconMap.length];
               const isEven = i % 2 === 0;
               return (
                 <motion.div
-                  key={step.number}
+                  key={step.id}
                   initial={{ opacity: 0, x: isEven ? -30 : 30 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className={`relative lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center ${
-                    i < steps.length - 1 ? "lg:mb-16" : ""
+                    i < content.process.length - 1 ? "lg:mb-16" : ""
                   }`}
                 >
                   {/* Step number dot on center line */}

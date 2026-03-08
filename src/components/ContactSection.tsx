@@ -5,32 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email Us",
-    value: "hello@devforge.io",
-    sub: "We reply within 24 hours",
-  },
-  {
-    icon: Phone,
-    label: "Call Us",
-    value: "+1 (555) 234-5678",
-    sub: "Mon–Fri, 9AM–6PM EST",
-  },
-  {
-    icon: MapPin,
-    label: "Visit Us",
-    value: "123 Tech Boulevard",
-    sub: "San Francisco, CA 94102",
-  },
-];
+import { useContent } from "@/context/ContentContext";
 
 export const ContactSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
+  const { content } = useContent();
+  const { contact } = content;
+
+  const contactInfo = [
+    { icon: Mail, label: "Email Us", value: contact.email, sub: "We reply within 24 hours" },
+    { icon: Phone, label: "Call Us", value: contact.phone, sub: "Mon–Fri, 9AM–6PM EST" },
+    { icon: MapPin, label: "Visit Us", value: contact.address, sub: contact.addressSub },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

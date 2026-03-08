@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2, ChevronRight } from "lucide-react";
+import { Menu, X, Code2, ChevronRight, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/context/ContentContext";
 
 const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Process", href: "#process" },
-  { label: "Tech Stack", href: "#tech-stack" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
@@ -16,7 +16,7 @@ const navLinks = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const { content } = useContent();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -54,7 +54,7 @@ export const Navbar = () => {
                 <Code2 className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="font-display font-bold text-lg text-foreground">
-                Dev<span className="text-gradient">Forge</span>
+                Moh<span className="text-gradient">Stack</span>
               </span>
             </a>
 
@@ -73,6 +73,14 @@ export const Navbar = () => {
 
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.location.href = "/dashboard"}
+                className="text-muted-foreground hover:text-foreground gap-1.5"
+              >
+                <Settings className="w-3.5 h-3.5" /> CMS
+              </Button>
               <Button
                 variant="ghost"
                 size="sm"
