@@ -29,7 +29,8 @@ export const QuoteFormSection = () => {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    await supabase.from("leads").insert({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase as any).from("leads").insert({
       type: "quote",
       name: data.get("name") as string,
       email: data.get("email") as string,
@@ -39,6 +40,7 @@ export const QuoteFormSection = () => {
       timeline: timeline || null,
       message: data.get("description") as string,
     });
+    if (error) console.error("Lead insert error:", error);
 
     setSubmitting(false);
     setSubmitted(true);
