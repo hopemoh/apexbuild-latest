@@ -34,6 +34,7 @@ export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { content, resetContent } = useContent();
+  const { signOut, user } = useAuth();
 
   const renderSection = () => {
     switch (activeSection) {
