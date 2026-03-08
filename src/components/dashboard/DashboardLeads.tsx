@@ -51,7 +51,8 @@ export const DashboardLeads = () => {
 
   const fetchLeads = async () => {
     setLoading(true);
-    const { data } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
       .from("leads")
       .select("*")
       .order("created_at", { ascending: false });
