@@ -10,14 +10,14 @@ const stats = [
   { value: "8+", label: "Years of Excellence" },
 ];
 
-const fadeUp = {
+const fadeUpItem = (i: number) => ({
   hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
+    transition: { duration: 0.6, delay: i * 0.1 },
+  },
+});
 
 export const HeroSection = () => {
   const handleNav = (href: string) => {
