@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles, Code2, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, Code2, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -9,15 +9,6 @@ const stats = [
   { value: "50+", label: "Expert Engineers" },
   { value: "8+", label: "Years of Excellence" },
 ];
-
-const fadeUpItem = (i: number) => ({
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.1 },
-  },
-});
 
 export const HeroSection = () => {
   const handleNav = (href: string) => {
@@ -48,10 +39,9 @@ export const HeroSection = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-sm font-medium text-primary mb-8"
           >
             <Sparkles className="w-4 h-4" />
@@ -61,10 +51,9 @@ export const HeroSection = () => {
 
           {/* Headline */}
           <motion.h1
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
           >
             We Build{" "}
@@ -77,10 +66,9 @@ export const HeroSection = () => {
 
           {/* Sub */}
           <motion.p
-            custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
             From concept to launch — we craft high-performance web apps, mobile applications, 
@@ -89,10 +77,9 @@ export const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            custom={3}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-wrap gap-4 justify-center mb-16"
           >
             <Button
@@ -114,10 +101,9 @@ export const HeroSection = () => {
 
           {/* Feature pills */}
           <motion.div
-            custom={4}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap gap-3 justify-center mb-20"
           >
             {[
@@ -143,7 +129,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.6 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
         >
-          {stats.map((stat, i) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="glass-card rounded-2xl p-5 text-center"
