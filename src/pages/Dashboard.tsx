@@ -33,7 +33,7 @@ const navItems = [
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { content, resetContent } = useContent();
+  const { content, resetContent, saving, loading } = useContent();
   const { signOut, user } = useAuth();
 
   const renderSection = () => {
