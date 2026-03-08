@@ -12,14 +12,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
 
 export const QuoteFormSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [budget, setBudget] = useState("");
+  const [service, setService] = useState("");
+  const [timeline, setTimeline] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitting(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    await supabase.from("leads").insert({
+      type: "quote",
+      name: data.get("name") as string,
+      email: data.get("email") as string,
+      company: (data.get("company") as string) || null,
+      budget: budget || null,
+      service: service || null,
+      timeline: timeline || null,
+      message: data.get("description") as string,
+    });
+
+    setSubmitting(false);
     setSubmitted(true);
   };
 
@@ -70,31 +91,31 @@ export const QuoteFormSection = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>
-                    <Input id="name" placeholder="John Smith" required className="bg-secondary/50 border-border h-11" />
+                    <Input id="name" name="name" placeholder="John Smith" required className="bg-secondary/50 border-border h-11" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="john@company.com" required className="bg-secondary/50 border-border h-11" />
+                    <Input id="email" name="email" type="email" placeholder="john@company.com" required className="bg-secondary/50 border-border h-11" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label htmlFor="company">Company</Label>
-                    <Input id="company" placeholder="Your Company" className="bg-secondary/50 border-border h-11" />
+                    <Input id="company" name="company" placeholder="Your Company" className="bg-secondary/50 border-border h-11" />
                   </div>
                   <div className="space-y-2">
                     <Label>Budget Range</Label>
-                    <Select>
+                    <Select value={budget} onValueChange={setBudget}>
                       <SelectTrigger className="bg-secondary/50 border-border h-11">
                         <SelectValue placeholder="Select budget" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="under5k">Under $5,000</SelectItem>
-                        <SelectItem value="5k-15k">$5,000 – $15,000</SelectItem>
-                        <SelectItem value="15k-50k">$15,000 – $50,000</SelectItem>
-                        <SelectItem value="50k-100k">$50,000 – $100,000</SelectItem>
-                        <SelectItem value="over100k">$100,000+</SelectItem>
+                        <SelectItem value="Under $5,000">Under $5,000</SelectItem>
+                        <SelectItem value="$5,000 – $15,000">$5,000 – $15,000</SelectItem>
+                        <SelectItem value="$15,000 – $50,000">$15,000 – $50,000</SelectItem>
+                        <SelectItem value="$50,000 – $100,000">$50,000 – $100,000</SelectItem>
+                        <SelectItem value="$100,000+">$100,000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -103,33 +124,33 @@ export const QuoteFormSection = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label>Service Needed</Label>
-                    <Select>
+                    <Select value={service} onValueChange={setService}>
                       <SelectTrigger className="bg-secondary/50 border-border h-11">
                         <SelectValue placeholder="Select service" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="web">Website Development</SelectItem>
-                        <SelectItem value="mobile">Mobile App</SelectItem>
-                        <SelectItem value="saas">SaaS Platform</SelectItem>
-                        <SelectItem value="ecommerce">E-commerce</SelectItem>
-                        <SelectItem value="design">UI/UX Design</SelectItem>
-                        <SelectItem value="backend">API / Backend</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="Website Development">Website Development</SelectItem>
+                        <SelectItem value="Mobile App">Mobile App</SelectItem>
+                        <SelectItem value="SaaS Platform">SaaS Platform</SelectItem>
+                        <SelectItem value="E-commerce">E-commerce</SelectItem>
+                        <SelectItem value="UI/UX Design">UI/UX Design</SelectItem>
+                        <SelectItem value="API / Backend">API / Backend</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
                     <Label>Timeline</Label>
-                    <Select>
+                    <Select value={timeline} onValueChange={setTimeline}>
                       <SelectTrigger className="bg-secondary/50 border-border h-11">
                         <SelectValue placeholder="Select timeline" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="asap">ASAP</SelectItem>
-                        <SelectItem value="1-3m">1–3 months</SelectItem>
-                        <SelectItem value="3-6m">3–6 months</SelectItem>
-                        <SelectItem value="6m+">6+ months</SelectItem>
-                        <SelectItem value="flexible">Flexible</SelectItem>
+                        <SelectItem value="ASAP">ASAP</SelectItem>
+                        <SelectItem value="1–3 months">1–3 months</SelectItem>
+                        <SelectItem value="3–6 months">3–6 months</SelectItem>
+                        <SelectItem value="6+ months">6+ months</SelectItem>
+                        <SelectItem value="Flexible">Flexible</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -139,6 +160,7 @@ export const QuoteFormSection = () => {
                   <Label htmlFor="description">Project Description *</Label>
                   <Textarea
                     id="description"
+                    name="description"
                     placeholder="Tell us about your project — what you're building, who it's for, and what problem it solves..."
                     required
                     rows={5}
@@ -148,10 +170,11 @@ export const QuoteFormSection = () => {
 
                 <Button
                   type="submit"
+                  disabled={submitting}
                   size="lg"
                   className="w-full bg-gradient-primary text-primary-foreground font-semibold py-6 rounded-xl shadow-glow hover:opacity-90 transition-opacity text-base"
                 >
-                  Request Quote <Send className="ml-2 w-4 h-4" />
+                  {submitting ? "Sending…" : "Request Quote"} <Send className="ml-2 w-4 h-4" />
                 </Button>
               </form>
             )}

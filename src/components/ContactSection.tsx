@@ -6,11 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useContent } from "@/context/ContentContext";
+import { supabase } from "@/integrations/supabase/client";
 
 export const ContactSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const { content } = useContent();
   const { contact } = content;
 
@@ -20,8 +22,21 @@ export const ContactSection = () => {
     { icon: MapPin, label: "Visit Us", value: contact.address, sub: contact.addressSub },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitting(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    await supabase.from("leads").insert({
+      type: "contact",
+      name: data.get("name") as string,
+      email: data.get("email") as string,
+      subject: data.get("subject") as string || null,
+      message: data.get("message") as string,
+    });
+
+    setSubmitting(false);
     setSubmitted(true);
   };
 
@@ -107,21 +122,22 @@ export const ContactSection = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="contact-name">Name *</Label>
-                      <Input id="contact-name" placeholder="Your name" required className="bg-secondary/50 border-border h-11" />
+                      <Input id="contact-name" name="name" placeholder="Your name" required className="bg-secondary/50 border-border h-11" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="contact-email">Email *</Label>
-                      <Input id="contact-email" type="email" placeholder="your@email.com" required className="bg-secondary/50 border-border h-11" />
+                      <Input id="contact-email" name="email" type="email" placeholder="your@email.com" required className="bg-secondary/50 border-border h-11" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="contact-subject">Subject</Label>
-                    <Input id="contact-subject" placeholder="How can we help?" className="bg-secondary/50 border-border h-11" />
+                    <Input id="contact-subject" name="subject" placeholder="How can we help?" className="bg-secondary/50 border-border h-11" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="contact-message">Message *</Label>
                     <Textarea
                       id="contact-message"
+                      name="message"
                       placeholder="Tell us more..."
                       required
                       rows={5}
@@ -130,10 +146,11 @@ export const ContactSection = () => {
                   </div>
                   <Button
                     type="submit"
+                    disabled={submitting}
                     size="lg"
                     className="w-full bg-gradient-primary text-primary-foreground font-semibold py-6 rounded-xl shadow-glow hover:opacity-90 transition-opacity text-base"
                   >
-                    Send Message <Send className="ml-2 w-4 h-4" />
+                    {submitting ? "Sending…" : "Send Message"} <Send className="ml-2 w-4 h-4" />
                   </Button>
                 </form>
               )}
