@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContent } from "@/context/ContentContext";
+import { useAuth } from "@/context/AuthContext";
 import { DashboardHero } from "@/components/dashboard/DashboardHero";
 import { DashboardServices } from "@/components/dashboard/DashboardServices";
 import { DashboardProjects } from "@/components/dashboard/DashboardProjects";
