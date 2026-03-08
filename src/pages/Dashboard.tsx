@@ -17,6 +17,7 @@ import { DashboardPricing } from "@/components/dashboard/DashboardPricing";
 import { DashboardFAQ } from "@/components/dashboard/DashboardFAQ";
 import { DashboardContact } from "@/components/dashboard/DashboardContact";
 import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
+import { DashboardLeads } from "@/components/dashboard/DashboardLeads";
 
 const navItems = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -28,6 +29,7 @@ const navItems = [
   { id: "pricing", label: "Pricing", icon: DollarSign },
   { id: "faq", label: "FAQ", icon: HelpCircle },
   { id: "contact", label: "Contact", icon: Phone },
+  { id: "leads", label: "Leads", icon: MessageSquare },
 ];
 
 export default function Dashboard() {
