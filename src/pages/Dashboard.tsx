@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContent } from "@/context/ContentContext";
+import { useAuth } from "@/context/AuthContext";
 import { DashboardHero } from "@/components/dashboard/DashboardHero";
 import { DashboardServices } from "@/components/dashboard/DashboardServices";
 import { DashboardProjects } from "@/components/dashboard/DashboardProjects";
@@ -33,6 +34,7 @@ export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { content, resetContent } = useContent();
+  const { signOut, user } = useAuth();
 
   const renderSection = () => {
     switch (activeSection) {
@@ -96,6 +98,9 @@ export default function Dashboard() {
 
         {/* Bottom actions */}
         <div className="p-2 border-t border-border space-y-1">
+          {sidebarOpen && user && (
+            <p className="text-xs text-muted-foreground px-3 py-1 truncate">{user.email}</p>
+          )}
           <button
             onClick={() => window.open("/", "_blank")}
             title={!sidebarOpen ? "View Site" : undefined}
@@ -111,6 +116,14 @@ export default function Dashboard() {
           >
             <RotateCcw className="w-4 h-4 flex-shrink-0" />
             {sidebarOpen && <span>Reset Content</span>}
+          </button>
+          <button
+            onClick={() => { if (confirm("Sign out of the CMS?")) signOut(); }}
+            title={!sidebarOpen ? "Sign Out" : undefined}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all"
+          >
+            <LogOut className="w-4 h-4 flex-shrink-0" />
+            {sidebarOpen && <span>Sign Out</span>}
           </button>
         </div>
       </aside>
@@ -137,7 +150,7 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-2">
             <span className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground bg-secondary/60 px-3 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Auto-saved
             </span>
           </div>
