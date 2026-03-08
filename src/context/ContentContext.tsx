@@ -152,7 +152,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     debounceRef.current = setTimeout(async () => {
       setSaving(true);
       await supabase.from("site_content").upsert(
-        { slug: SLUG, data: next },
+        [{ slug: SLUG, data: next as unknown as import("@/integrations/supabase/types").Json }],
         { onConflict: "slug" }
       );
       existsRef.current = true;
