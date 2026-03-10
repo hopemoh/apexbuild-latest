@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,6 +23,13 @@ export const QuoteFormSection = () => {
   const [service, setService] = useState("");
   const [timeline, setTimeline] = useState("");
 
+  const [selectedPlan, setSelectedPlan] = useState("");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get("plan");
+    if (plan) setSelectedPlan(plan);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
@@ -38,6 +45,7 @@ export const QuoteFormSection = () => {
       budget: budget || null,
       service: service || null,
       timeline: timeline || null,
+      subject: selectedPlan || null,
       message: data.get("description") as string,
     });
     if (error) console.error("Lead insert error:", error);
@@ -90,6 +98,22 @@ export const QuoteFormSection = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                 {selectedPlan && (
+                  <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <Sparkles className="w-4 h-4 text-primary flex-shrink-0" />
+                    <p className="text-sm text-foreground">
+                      Selected plan:{" "}
+                      <span className="font-semibold text-primary">{selectedPlan}</span>
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPlan("")}
+                      className="ml-auto text-muted-foreground hover:text-foreground text-xs"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>

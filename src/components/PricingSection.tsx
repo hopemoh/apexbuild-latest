@@ -21,7 +21,10 @@ export const PricingSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const { content } = useContent();
 
-  const handleNav = (href: string) => {
+ const handleNav = (href: string, planTitle: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("plan", planTitle);
+    window.history.replaceState({}, "", url.toString());
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -105,7 +108,7 @@ export const PricingSection = () => {
                       : "border-border bg-secondary text-foreground hover:bg-secondary/80"
                   }`}
                   variant={plan.highlight ? "default" : "outline"}
-                  onClick={() => handleNav("#quote")}
+                   onClick={() => handleNav("#quote", plan.title)}
                 >
                   {plan.cta}
                 </Button>

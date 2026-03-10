@@ -51,7 +51,7 @@ export default function Login() {
               <Code2 className="w-7 h-7 text-primary-foreground" />
             </div>
             <h1 className="font-display font-bold text-2xl">
-              Moh<span className="text-gradient">Stack</span>
+              Apex<span className="text-gradient">Build</span>
             </h1>
             <p className="text-muted-foreground text-sm mt-1">CMS — Owner Access Only</p>
           </div>
@@ -72,7 +72,7 @@ export default function Login() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   type="email"
-                  placeholder="owner@mohstack.io"
+                  placeholder="owner@ApexBuild.io"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
