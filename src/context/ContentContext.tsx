@@ -23,7 +23,7 @@ export interface SiteContent {
 
 // ---- Default content ----
 export const defaultContent: SiteContent = {
-  companyName: "RoWiCodeTech",
+  companyName: "RoWiCode Tech",
   tagline: "We craft world-class digital products for startups and enterprises. 150+ projects delivered. 98% client satisfaction.",
   hero: {
     badge: "Digital Agency",
@@ -62,12 +62,12 @@ export const defaultContent: SiteContent = {
     { id: "pr6", number: "06", title: "Launch & Support", description: "Smooth deployment to production, monitoring setup, and ongoing support to ensure your product succeeds.", detail: "Deployment, monitoring, 24/7 support, iteration" },
   ],
   testimonials: [
-    { id: "t1", name: "Sarah Mitchell", title: "CEO, FinFlow Inc.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face", rating: 5, text: "RoWicodeTech transformed our vision into a stunning fintech dashboard. Their team's attention to detail and proactive communication made the entire process seamless. We launched 2 weeks ahead of schedule!" },
+    { id: "t1", name: "Sarah Mitchell", title: "CEO, FinFlow Inc.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face", rating: 5, text: "RoWicode Tech transformed our vision into a stunning fintech dashboard. Their team's attention to detail and proactive communication made the entire process seamless. We launched 2 weeks ahead of schedule!" },
     { id: "t2", name: "Marcus Thompson", title: "CTO, QuickBite", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face", rating: 5, text: "The mobile app they built for us handles 50,000+ daily active users without a hiccup. The code quality is exceptional and their post-launch support has been outstanding." },
-    { id: "t3", name: "Priya Patel", title: "Founder, TradeHub", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face", rating: 5, text: "We needed a complex B2B marketplace built fast. RoWiCodeTech delivered a world-class product in just 4 months. Our conversion rate increased by 340% after launch." },
+    { id: "t3", name: "Priya Patel", title: "Founder, TradeHub", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face", rating: 5, text: "We needed a complex B2B marketplace built fast. RoWiCode Tech delivered a world-class product in just 4 months. Our conversion rate increased by 340% after launch." },
     { id: "t4", name: "James Okonkwo", title: "VP Engineering, LogiTrack", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face", rating: 5, text: "Their backend architecture is rock-solid. Our logistics platform processes millions of data points daily and the system has maintained 99.99% uptime. Truly enterprise-grade work." },
-    { id: "t5", name: "Emily Chen", title: "Product Manager, TeamSync", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face", rating: 5, text: "The UI/UX work RoWiCodeTech did for our SaaS reduced our onboarding time by 60%. Every interaction feels polished. Our NPS score jumped from 32 to 71 after the redesign." },
-    { id: "t6", name: "David Larsson", title: "Founder, StyleVault", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face", rating: 5, text: "From strategy to launch, RoWicodeTech was our trusted partner. They don't just build what you ask for — they challenge your assumptions and deliver something even better." },
+    { id: "t5", name: "Emily Chen", title: "Product Manager, TeamSync", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face", rating: 5, text: "The UI/UX work RoWiCode Tech did for our SaaS reduced our onboarding time by 60%. Every interaction feels polished. Our NPS score jumped from 32 to 71 after the redesign." },
+    { id: "t6", name: "David Larsson", title: "Founder, StyleVault", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face", rating: 5, text: "From strategy to launch, RoWicode Tech was our trusted partner. They don't just build what you ask for — they challenge your assumptions and deliver something even better." },
   ],
   pricing: [
     { id: "pl1", title: "Fixed Price", subtitle: "Best for defined projects", price: "From $5,000", period: "per project", description: "Ideal for projects with clear scope and requirements.", features: ["Detailed project scoping", "Fixed timeline & budget", "Milestone-based payments", "Full project documentation", "3 months post-launch support", "Source code ownership"], cta: "Get a Quote", highlight: false },

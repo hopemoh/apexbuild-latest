@@ -69,7 +69,7 @@ export default function Dashboard() {
           </div>
           {sidebarOpen && (
             <span className="font-display font-bold text-base">
-              RowiCode<span className="text-gradient">Tech</span>
+              RoWiCode<span className="text-gradient">Tech</span>
               <span className="text-xs text-muted-foreground font-normal ml-1.5">CMS</span>
             </span>
           )}
