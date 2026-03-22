@@ -51,7 +51,7 @@ export default function Login() {
               <Code2 className="w-7 h-7 text-primary-foreground" />
             </div>
             <h1 className="font-display font-bold text-2xl">
-              Apex<span className="text-gradient">Build</span>
+              RoWiCode<span className="text-gradient">Tech</span>
             </h1>
             <p className="text-muted-foreground text-sm mt-1">CMS — Owner Access Only</p>
           </div>

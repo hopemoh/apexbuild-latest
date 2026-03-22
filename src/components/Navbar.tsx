@@ -54,7 +54,7 @@ export const Navbar = () => {
                 <Code2 className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="font-display font-bold text-lg text-foreground">
-                Apex<span className="text-gradient">Build</span>
+                RoWiCode<span className="text-gradient">Tech</span>
               </span>
             </a>
 

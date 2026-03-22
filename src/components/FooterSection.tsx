@@ -51,7 +51,7 @@ export const FooterSection = () => {
                 <Code2 className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="font-display font-bold text-lg">
-                Apex<span className="text-gradient">Build</span>
+                RoWiCode<span className="text-gradient">Tech</span>
               </span>
             </a>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
@@ -97,7 +97,7 @@ export const FooterSection = () => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} ApexBuild. All rights reserved.
+            © {new Date().getFullYear()} RoWiCodeTech. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             {socials.map(({ icon: Icon, label, href }) => (
