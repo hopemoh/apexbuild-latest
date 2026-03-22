@@ -23,7 +23,7 @@ export interface SiteContent {
 
 // ---- Default content ----
 export const defaultContent: SiteContent = {
-  companyName: "ApexBuild",
+  companyName: "RoWiCodeTech",
   tagline: "We craft world-class digital products for startups and enterprises. 150+ projects delivered. 98% client satisfaction.",
   hero: {
     badge: "Digital Agency",
