@@ -72,7 +72,7 @@ export default function Login() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   type="email"
-                  placeholder="owner@ApexBuild.io"
+                  placeholder="owner@rowicodetech.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
